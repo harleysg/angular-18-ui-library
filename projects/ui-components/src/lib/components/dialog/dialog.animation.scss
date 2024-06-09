@@ -1,0 +1,52 @@
+/**
+ * ----------------------------------------
+ * animation slide
+ * ----------------------------------------
+*/
+
+$ui-dialog-slide-top: ui-dialog-slide-top;
+
+@keyframes #{$ui-dialog-slide-top} {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+$ui-dialog-slide-bottom: ui-dialog-slide-bottom;
+
+@keyframes #{$ui-dialog-slide-bottom} {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+$ui-dialog-fade-out: ui-dialog-fade-out;
+
+@keyframes #{$ui-dialog-fade-out} {
+  100% {
+    opacity: 0;
+    display: none;
+    transform: translateY(-100%);
+  }
+}
+
+$ui-dialog-fade-in-cenital: ui-dialog-fade-in-cenital;
+
+@keyframes #{$ui-dialog-fade-in-cenital} {
+  0% {
+    opacity: 0;
+    display: none;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    display: block;
+    transform: translateY(0);
+  }
+}

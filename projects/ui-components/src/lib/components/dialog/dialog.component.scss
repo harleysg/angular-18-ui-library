@@ -1,0 +1,124 @@
+:host {
+  --ui-dialog-border-width: 0;
+  --ui-dialog-backdrop-background: var(--app-overlay-brackground);
+  // Lateral
+  --ext-ui-dialog-lateral-max-width: 500px;
+  // Cenital
+  --ext-ui-dialog-cenital-max-width: 100%;
+  --ext-ui-dialog-cenital-max-height: 300px;
+  // Nadir
+  --ext-ui-dialog-nadir-max-width: 100%;
+  --ext-ui-dialog-nadir-max-height: 500px;
+  // Center
+  --ext-ui-dialog-center-max-width: calc(var(--app-wrapper-max-width) * 0.6);
+  --ext-ui-dialog-center-max-height: 500px;
+}
+
+.from-center {
+  --ui-dialog-max-width: var(--ext-ui-dialog-center-max-width);
+  --ui-dialog-max-height: var(--ext-ui-dialog-center-max-height);
+  --ui-dialog-transition-translate-duration: 0.5s;
+  --ui-dialog-transition-display-duration: .3s;
+  --ui-dialog-transition-opacity-duration: .2s;
+  --ui-dialog-translate: 0 -15%;
+  --ui-dialog-transition:
+    opacity var(--ui-dialog-transition-opacity-duration, 0.5s) allow-discrete,
+    display var(--ui-dialog-transition-display-duration, 0.5s) allow-discrete,
+    translate var(--ui-dialog-transition-translate-duration, .3s) allow-discrete;
+}
+
+.from-cenital,
+.from-nadir {
+  --ui-dialog-height: 100%;
+  --ui-dialog-width: 100%;
+  --ui-dialog-transition-translate-duration: 0.5s;
+  --ui-dialog-transition-display-duration: .7s;
+  --ui-dialog-transition-opacity-duration: 0.8s;
+  --ui-dialog-transition:
+    opacity var(--ui-dialog-transition-opacity-duration, 0.5s) allow-discrete,
+    display var(--ui-dialog-transition-display-duration, 0.5s) allow-discrete,
+    translate var(--ui-dialog-transition-translate-duration, .3s) allow-discrete;
+}
+
+.from-cenital {
+  --ui-dialog-max-width: var(--ext-ui-dialog-cenital-max-width);
+  --ui-dialog-max-height: var(--ext-ui-dialog-cenital-max-height);
+  --ui-dialog-inset-block-end: auto;
+  --ui-dialog-translate: 0 -30%;
+}
+
+.from-nadir {
+  --ui-dialog-max-width: var(--ext-ui-dialog-cenital-max-width);
+  --ui-dialog-max-height: var(--ext-ui-dialog-cenital-max-height);
+  --ui-dialog-translate: 0 30%;
+  --ui-dialog-inset-block-start: auto;
+}
+
+.from-right,
+.from-left {
+  --ui-dialog-height: 100%;
+  --ui-dialog-width: 100%;
+  --ui-dialog-max-height: 100%;
+  --ui-dialog-max-width: var(--ext-ui-dialog-lateral-max-width);
+  --ui-dialog-transition:
+    opacity var(--ui-dialog-transition-opacity-duration, 0.5s) allow-discrete,
+    display var(--ui-dialog-transition-display-duration, 0.5s) allow-discrete,
+    translate var(--ui-dialog-transition-translate-duration, .3s) allow-discrete;
+}
+.from-right {
+  --ui-dialog-margin-inline: auto 0;
+  --ui-dialog-translate: 30% 0;
+}
+.from-left {
+  --ui-dialog-margin-inline: 0 auto;
+  --ui-dialog-translate: -30% 0;
+}
+
+dialog {
+  max-width: var(--ui-dialog-max-width, calc(100% - 2em - 6px));
+  width: var(--ui-dialog-width, fit-content);
+  max-height: var(--ui-dialog-max-height, calc(100% - 2em - 6px));
+  height: var(--ui-dialog-height, fit-content);
+  padding-inline: var(--ui-dialog-padding-inline, 0.5rem);
+  padding-block: var(--ui-dialog-padding-block, 0.5rem);
+  background-color: var(--ui-dialog-color, canvas);
+  color: var(--ui-dialog-color, canvastext);
+  margin-inline: var(--ui-dialog-margin-inline, auto);
+  margin-block: var(--ui-dialog-margin-block, auto);
+  border-width: var(--ui-dialog-border-width, initial);
+  border-style: var(--ui-dialog-border-style, solid);
+  border-color: var(--ui-dialog-border-color, initial);
+  border-image: var(--ui-dialog-border-image, initial);
+  inset-inline-start: var(--ui-dialog-inset-inline-start, 0px);
+  inset-inline-end: var(--ui-dialog-inset-inline-end, 0px);
+  inset-block-start: var(--ui-dialog-inset-block-start, 0px);
+  inset-block-end: var(--ui-dialog-inset-block-end, 0px);
+
+  transition: var(--ui-dialog-transition);
+  opacity: 0;
+  translate: var(--ui-dialog-translate, 0 0);
+
+  &[open] {
+    opacity: 1;
+    translate: 0 0;
+
+    &::backdrop {
+      opacity: 1;
+    }
+
+    @starting-style {
+      opacity: 0;
+      translate: var(--ui-dialog-translate, 0 0);
+
+      &::backdrop {
+        opacity: 0;
+      }
+    }
+  }
+
+  &::backdrop {
+    transition: opacity 1.7s allow-discrete;
+    opacity: 0;
+    background: var(--ui-dialog-backdrop-background, rgba(0, 0, 0, 0.1));
+  }
+}

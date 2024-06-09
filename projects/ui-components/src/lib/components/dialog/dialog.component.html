@@ -1,0 +1,27 @@
+<dialog #dialogRef class="{{ 'from-'+position() }}">
+  @if (layout() === layoutType.FULL) {
+    <ng-container [ngTemplateOutlet]="fullLayout"></ng-container>
+   }
+   @else {
+     <ng-container [ngTemplateOutlet]="defaultContent"></ng-container>
+   }
+</dialog>
+
+
+
+<!-- default layout -->
+<ng-template #defaultLayout>
+  <ng-container [ngTemplateOutlet]="defaultContent"></ng-container>
+</ng-template>
+
+<!-- full layout -->
+<ng-template #fullLayout>
+  <ng-content select="[header]"></ng-content>
+  <ng-container [ngTemplateOutlet]="defaultContent"></ng-container>
+  <ng-content select="[footer]"></ng-content>
+</ng-template>
+
+<!-- default content -->
+<ng-template #defaultContent>
+  <ng-content />
+</ng-template>

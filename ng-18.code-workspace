@@ -1,0 +1,30 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+      "name": "library",
+			"path": "projects/ui-components/src"
+		},
+		{
+      "name": "web",
+			"path": "projects/www/src"
+		}
+	],
+	"settings": {
+    "files.exclude": {
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/Thumbs.db": true,
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/.vscode": true,
+      "**/.angular": true,
+      "**/projects": true
+    }
+  }
+}
