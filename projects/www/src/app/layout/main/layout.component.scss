@@ -1,0 +1,11 @@
+:host {
+  display: grid;
+  row-gap: 1rem;
+  min-height: 100vh;
+  grid-template-rows: auto 1fr;
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
+}
