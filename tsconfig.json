@@ -19,10 +19,12 @@
     "module": "ES2022",
     "useDefineForClassFields": false,
     "paths": {
-      "ui-components": [
-        "./dist/ui-components",
+      "@ui-components": [
         "./dist/ui-components"
-      ]
+      ],
+      "@data/*": ["./projects/www/src/app/data/*"],
+      "@models/*": ["./projects/www/src/app/models/*"],
+      "@services/*": ["./projects/www/src/app/services/*"],
     },
     "lib": [
       "ES2022",

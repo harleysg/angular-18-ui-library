@@ -26,5 +26,16 @@
       "**/.angular": true,
       "**/projects": true
     }
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [{
+      "name": "ng serve",
+      "type": "chrome",
+      "request": "launch",
+      "preLaunchTask": "npm: dev:web",
+      "url": "http://localhost:1234/"
+    }],
+    "compounds": []
   }
 }

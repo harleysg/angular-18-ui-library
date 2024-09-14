@@ -1,0 +1,17 @@
+<h1>Hi, {{title}}</h1>
+
+<div class="wrapper">
+  @for (product of products; track $index) {
+    <div class="card">
+      <img [src]="product.image"/>
+      <div>
+        <h3>{{product.title}}</h3>
+        <p class="price">Price = ${{product.price}}</p>
+        <p>{{product.description}}</p>
+      </div>
+      <div class="cart-btn-div">
+        <button type ="button">Add to Cart</button>
+      </div>
+    </div>
+  }
+</div>

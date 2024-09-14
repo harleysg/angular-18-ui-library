@@ -18,7 +18,7 @@
   --ui-dialog-max-width: var(--ext-ui-dialog-center-max-width);
   --ui-dialog-max-height: var(--ext-ui-dialog-center-max-height);
   --ui-dialog-transition-translate-duration: 0.5s;
-  --ui-dialog-transition-display-duration: .3s;
+  --ui-dialog-transition-display-duration: .5s;
   --ui-dialog-transition-opacity-duration: .2s;
   --ui-dialog-translate: 0 -15%;
   --ui-dialog-transition:
@@ -93,10 +93,17 @@ dialog {
   inset-inline-end: var(--ui-dialog-inset-inline-end, 0px);
   inset-block-start: var(--ui-dialog-inset-block-start, 0px);
   inset-block-end: var(--ui-dialog-inset-block-end, 0px);
+  box-shadow: var(--ui-dialog-box-shadow, 0px 3px 50px -13px #7a7a7a);
 
   transition: var(--ui-dialog-transition);
   opacity: 0;
   translate: var(--ui-dialog-translate, 0 0);
+
+  &::backdrop {
+    transition: opacity 0.7s allow-discrete;
+    opacity: 0;
+    background: var(--ui-dialog-backdrop-background, rgba(0, 0, 0, 0.1));
+  }
 
   &[open] {
     opacity: 1;
@@ -109,16 +116,11 @@ dialog {
     @starting-style {
       opacity: 0;
       translate: var(--ui-dialog-translate, 0 0);
+      transition: opacity 1.7s allow-discrete;
 
       &::backdrop {
         opacity: 0;
       }
     }
-  }
-
-  &::backdrop {
-    transition: opacity 1.7s allow-discrete;
-    opacity: 0;
-    background: var(--ui-dialog-backdrop-background, rgba(0, 0, 0, 0.1));
   }
 }

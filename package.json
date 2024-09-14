@@ -1,12 +1,12 @@
 {
   "name": "ng-18",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "dev:web": "ng serve --project='www' --watch --configuration development",
+    "dev:web": "ng serve --project='www' --port=1234 --watch --configuration development",
     "dev:lib": "ng build --project='ui-components' --watch --configuration development",
     "prod:lib": "ng build --project='ui-components' --configuration production"
   },
