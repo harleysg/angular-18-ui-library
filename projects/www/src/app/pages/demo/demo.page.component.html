@@ -1,0 +1,88 @@
+<div class="content">
+  <div class="left-side">
+    <h1>Hello, {{ title }}</h1>
+    <div class="actions">
+      <button (click)="dialogLateralRef.open()">open {{positionType.RIGHT}}</button>
+      <button (click)="dialogCenitalRef.open()">open {{positionType.CENITAL}}</button>
+      <button (click)="dialogNadirRef.open()">open {{positionType.NADIR}}</button>
+      <button (click)="dialogLeftRef.open()">open {{positionType.LEFT}}</button>
+      <button (click)="dialogCenterRef.open()">open {{positionType.CENTER}}</button>
+      <button (click)="dialogRightNestedParentRef.open()">open nested</button>
+    </div>
+  </div>
+</div>
+<!--  -->
+<lib-ui-dialog #dialogLateralRef [layout]="layoutType.FULL" [position]="positionType.RIGHT">
+  <div class="modal-body">
+    <div header class="modal-header">
+      <button (click)="dialogLateralRef.close()">close</button>
+    </div>
+    <div>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis hic non consectetur, temporibus quasi consequuntur facere? Magni, maxime, tempore quos deleniti blanditiis veritatis officia, ut aspernatur dolorem qui ullam animi!
+    </div>
+    <div footer>Soy footer</div>
+  </div>
+</lib-ui-dialog>
+<!--  -->
+<lib-ui-dialog #dialogCenitalRef [layout]="layoutType.FULL" [position]="positionType.CENITAL">
+  <div class="modal-body">
+    <div header class="modal-header">
+      <button (click)="dialogCenitalRef.close()">close</button>
+    </div>
+    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis animi voluptate voluptatem rem. Nemo necessitatibus esse optio sapiente, porro architecto repellat officia natus sint distinctio autem minus facilis, ad explicabo!</div>
+    <div footer>Soy footer</div>
+  </div>
+</lib-ui-dialog>
+<!--  -->
+<lib-ui-dialog #dialogNadirRef [layout]="layoutType.FULL" [position]="positionType.NADIR">
+  <div class="modal-body">
+    <div header class="modal-header">
+      <button (click)="dialogNadirRef.close()">close</button>
+    </div>
+    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, dicta, quos a obcaecati sit nisi quod ad quibusdam in dolorem odit accusantium doloribus, minima unde. Ab vitae nostrum delectus cumque.</div>
+    <div footer>Soy footer</div>
+  </div>
+</lib-ui-dialog>
+<!--  -->
+<lib-ui-dialog #dialogLeftRef [layout]="layoutType.FULL" [position]="positionType.LEFT">
+  <div class="modal-body">
+    <div header class="modal-header">
+      <button (click)="dialogLeftRef.close()">close</button>
+    </div>
+    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, dicta, quos a obcaecati sit nisi quod ad quibusdam in dolorem odit accusantium doloribus, minima unde. Ab vitae nostrum delectus cumque.</div>
+    <div footer>Soy footer</div>
+  </div>
+</lib-ui-dialog>
+<!--  -->
+<lib-ui-dialog #dialogRightNestedParentRef style="--ext-ui-dialog-lateral-max-width: 800px" [layout]="layoutType.FULL" [position]="positionType.RIGHT">
+  <div class="modal-body">
+    <div header class="modal-header">
+      <button (click)="dialogRightNestedParentRef.close()">close</button>
+    </div>
+    <div>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, dicta, quos a obcaecati sit nisi quod ad quibusdam in dolorem odit accusantium doloribus, minima unde. Ab vitae nostrum delectus cumque.
+      <button (click)="dialogRightNestedChildRef.open()">open child</button>
+    </div>
+    <div footer>Soy footer</div>
+  </div>
+</lib-ui-dialog>
+<!--  -->
+<lib-ui-dialog #dialogRightNestedChildRef style="--ext-ui-dialog-lateral-max-width: 650px" [layout]="layoutType.FULL" [position]="positionType.RIGHT">
+  <div class="modal-body">
+    <div header class="modal-header">
+      <button (click)="dialogRightNestedChildRef.close()">close</button>
+    </div>
+    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, dicta, quos a obcaecati sit nisi quod ad quibusdam in dolorem odit accusantium doloribus, minima unde. Ab vitae nostrum delectus cumque.</div>
+    <div footer>Soy footer</div>
+  </div>
+</lib-ui-dialog>
+<!--  -->
+<lib-ui-dialog #dialogCenterRef [layout]="layoutType.FULL" [position]="positionType.CENTER">
+  <div class="modal-body">
+    <div header class="modal-header">
+      <button (click)="dialogCenterRef.close()">close</button>
+    </div>
+    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, dicta, quos a obcaecati sit nisi quod ad quibusdam in dolorem odit accusantium doloribus, minima unde. Ab vitae nostrum delectus cumque.</div>
+    <div footer>Soy footer</div>
+  </div>
+</lib-ui-dialog>
