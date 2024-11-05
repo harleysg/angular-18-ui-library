@@ -1,3 +1,2 @@
-export * from './dialog/dialog.component'
-export * from './dialog/dialog.types'
-export * from './dialog/dialog.service'
+export * from './dialog'
+export * from './atoms/ng-brand/ng-brand.component'
