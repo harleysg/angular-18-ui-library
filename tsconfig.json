@@ -25,6 +25,7 @@
       "@data/*": ["./projects/www/src/app/data/*"],
       "@models/*": ["./projects/www/src/app/models/*"],
       "@services/*": ["./projects/www/src/app/services/*"],
+      "@env/*": ["./projects/www/src/environments/*"]
     },
     "lib": [
       "ES2022",
