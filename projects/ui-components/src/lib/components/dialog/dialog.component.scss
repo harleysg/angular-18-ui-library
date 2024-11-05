@@ -1,27 +1,19 @@
+$int-name: --ui-dialog;
+$ext-name: --ext-ui-dialog;
+
 :host {
-  --ui-dialog-border-width: 0;
-  --ui-dialog-backdrop-background: var(--app-overlay-brackground);
-  // Lateral
-  --ext-ui-dialog-lateral-max-width: 500px;
-  // Cenital
-  --ext-ui-dialog-cenital-max-width: 100%;
-  --ext-ui-dialog-cenital-max-height: 300px;
-  // Nadir
-  --ext-ui-dialog-nadir-max-width: 100%;
-  --ext-ui-dialog-nadir-max-height: 500px;
-  // Center
-  --ext-ui-dialog-center-max-width: calc(var(--app-wrapper-max-width) * 0.6);
-  --ext-ui-dialog-center-max-height: 500px;
+  #{$int-name}-border-width: 0;
+  #{$int-name}-backdrop-background: var(--app-overlay-brackground);
 }
 
 .from-center {
-  --ui-dialog-max-width: var(--ext-ui-dialog-center-max-width);
-  --ui-dialog-max-height: var(--ext-ui-dialog-center-max-height);
-  --ui-dialog-transition-translate-duration: 0.5s;
-  --ui-dialog-transition-display-duration: .5s;
-  --ui-dialog-transition-opacity-duration: .2s;
-  --ui-dialog-translate: 0 -15%;
-  --ui-dialog-transition:
+  #{$int-name}-max-width: var(#{$ext-name}-center-max-width, 500px);
+  #{$int-name}-max-height: var(#{$ext-name}-center-max-height, 500px);
+  #{$int-name}-transition-translate-duration: 0.5s;
+  #{$int-name}-transition-display-duration: .5s;
+  #{$int-name}-transition-opacity-duration: .2s;
+  #{$int-name}-translate: var(#{$ext-name}-center-translate, 0 0);
+  #{$int-name}-transition:
     opacity var(--ui-dialog-transition-opacity-duration, 0.5s) allow-discrete,
     display var(--ui-dialog-transition-display-duration, 0.5s) allow-discrete,
     translate var(--ui-dialog-transition-translate-duration, .3s) allow-discrete;
@@ -29,80 +21,82 @@
 
 .from-cenital,
 .from-nadir {
-  --ui-dialog-height: 100%;
-  --ui-dialog-width: 100%;
-  --ui-dialog-transition-translate-duration: 0.5s;
-  --ui-dialog-transition-display-duration: .7s;
-  --ui-dialog-transition-opacity-duration: 0.8s;
-  --ui-dialog-transition:
-    opacity var(--ui-dialog-transition-opacity-duration, 0.5s) allow-discrete,
-    display var(--ui-dialog-transition-display-duration, 0.5s) allow-discrete,
-    translate var(--ui-dialog-transition-translate-duration, .3s) allow-discrete;
+  #{$int-name}-height: 100%;
+  #{$int-name}-width: 100%;
+  #{$int-name}-transition-translate-duration: 0.5s;
+  #{$int-name}-transition-opacity-duration: 0.8s;
+  #{$int-name}-transition: opacity var(#{$int-name}-transition-opacity-duration, 0.5s) allow-discrete,
+  display var(#{$int-name}-transition-display-duration, 0.5s) allow-discrete,
+  translate var(#{$int-name}-transition-translate-duration, .3s) allow-discrete;
 }
 
 .from-cenital {
-  --ui-dialog-max-width: var(--ext-ui-dialog-cenital-max-width);
-  --ui-dialog-max-height: var(--ext-ui-dialog-cenital-max-height);
-  --ui-dialog-inset-block-end: auto;
-  --ui-dialog-translate: 0 -30%;
+  #{$int-name}-max-width: var(#{$ext-name}-center-max-width, 100%);
+  #{$int-name}-max-height: var(#{$ext-name}-center-max-height, 300px);
+  #{$int-name}-inset-block-end: auto;
+  #{$int-name}-translate: var(#{$ext-name}-cenital-translate, 0 -30%);
 }
 
 .from-nadir {
-  --ui-dialog-max-width: var(--ext-ui-dialog-cenital-max-width);
-  --ui-dialog-max-height: var(--ext-ui-dialog-cenital-max-height);
-  --ui-dialog-translate: 0 30%;
-  --ui-dialog-inset-block-start: auto;
+  #{$int-name}-max-width: var(#{$ext-name}-cenital-max-width, 100%);
+  #{$int-name}-max-height: var(#{$ext-name}-cenital-max-height, 300px);
+  #{$int-name}-inset-block-start: auto;
+  #{$int-name}-translate: var(#{$ext-name}-nadir-translate, 0 30%);
 }
 
 .from-right,
 .from-left {
-  --ui-dialog-height: 100%;
-  --ui-dialog-width: 100%;
-  --ui-dialog-max-height: 100%;
-  --ui-dialog-max-width: var(--ext-ui-dialog-lateral-max-width);
-  --ui-dialog-transition:
-    opacity var(--ui-dialog-transition-opacity-duration, 0.5s) allow-discrete,
-    display var(--ui-dialog-transition-display-duration, 0.5s) allow-discrete,
-    translate var(--ui-dialog-transition-translate-duration, .3s) allow-discrete;
+  #{$int-name}-height: 100%;
+  #{$int-name}-width: 100%;
+  #{$int-name}-max-height: 100%;
+  #{$int-name}-max-width: var(#{$ext-name}-lateral-max-width, 500px);
+  #{$int-name}-transition: opacity var(#{$int-name}-transition-opacity-duration, 0.5s) allow-discrete,
+  display var(#{$int-name}-transition-display-duration, 0.5s) allow-discrete,
+  translate var(#{$int-name}-transition-translate-duration, .3s) allow-discrete;
 }
+
 .from-right {
-  --ui-dialog-margin-inline: auto 0;
-  --ui-dialog-translate: 30% 0;
+  #{$int-name}-margin-inline: auto 0;
+  #{$int-name}-translate-starting: 30% 0;
+  #{$int-name}-translate-ending: 30% 0;
+  #{$int-name}-box-shadow: -20px 0 40px -40px #010101;
 }
+
 .from-left {
-  --ui-dialog-margin-inline: 0 auto;
-  --ui-dialog-translate: -30% 0;
+  #{$int-name}-margin-inline: 0 auto;
+  #{$int-name}-translate: -30% 0;
+  #{$int-name}-box-shadow: 20px 0 40px -40px #010101;
 }
 
 dialog {
-  max-width: var(--ui-dialog-max-width, calc(100% - 2em - 6px));
-  width: var(--ui-dialog-width, fit-content);
-  max-height: var(--ui-dialog-max-height, calc(100% - 2em - 6px));
-  height: var(--ui-dialog-height, fit-content);
-  padding-inline: var(--ui-dialog-padding-inline, 0.5rem);
-  padding-block: var(--ui-dialog-padding-block, 0.5rem);
-  background-color: var(--ui-dialog-color, canvas);
-  color: var(--ui-dialog-color, canvastext);
-  margin-inline: var(--ui-dialog-margin-inline, auto);
-  margin-block: var(--ui-dialog-margin-block, auto);
-  border-width: var(--ui-dialog-border-width, initial);
-  border-style: var(--ui-dialog-border-style, solid);
-  border-color: var(--ui-dialog-border-color, initial);
-  border-image: var(--ui-dialog-border-image, initial);
-  inset-inline-start: var(--ui-dialog-inset-inline-start, 0px);
-  inset-inline-end: var(--ui-dialog-inset-inline-end, 0px);
-  inset-block-start: var(--ui-dialog-inset-block-start, 0px);
-  inset-block-end: var(--ui-dialog-inset-block-end, 0px);
-  box-shadow: var(--ui-dialog-box-shadow, 0px 3px 50px -13px #7a7a7a);
+  width: var(#{$int-name}-width, var(#{$ext-name}-width, fit-content));
+  height: var(#{$int-name}-height, fit-content);
+  max-width: var(#{$int-name}-max-width, calc(100% - 2em - 6px));
+  max-height: var(#{$int-name}-max-height, calc(100% - 2em - 6px));
+  padding-inline: var(#{$int-name}-padding-inline, 0.5rem);
+  padding-block: var(#{$int-name}-padding-block, 0.5rem);
+  background-color: var(#{$int-name}-color, canvas);
+  color: var(#{$int-name}-color, canvastext);
+  margin-inline: var(#{$int-name}-margin-inline, auto);
+  margin-block: var(#{$int-name}-margin-block, auto);
+  border-width: var(#{$int-name}-border-width, initial);
+  border-style: var(#{$int-name}-border-style, solid);
+  border-color: var(#{$int-name}-border-color, initial);
+  border-image: var(#{$int-name}-border-image, initial);
+  inset-inline-start: var(#{$int-name}-inset-inline-start, 0px);
+  inset-inline-end: var(#{$int-name}-inset-inline-end, 0px);
+  inset-block-start: var(#{$int-name}-inset-block-start, 0px);
+  inset-block-end: var(#{$int-name}-inset-block-end, 0px);
+  box-shadow: var(#{$int-name}-box-shadow, 0px 3px 50px -13px #7a7a7a);
 
-  transition: var(--ui-dialog-transition);
+  transition: var(#{$int-name}-transition);
   opacity: 0;
-  translate: var(--ui-dialog-translate, 0 0);
+  translate: var(#{$int-name}-translate, 0 0);
 
   &::backdrop {
     transition: opacity 0.7s allow-discrete;
     opacity: 0;
-    background: var(--ui-dialog-backdrop-background, rgba(0, 0, 0, 0.1));
+    background: var(#{$int-name}-backdrop-background, rgba(0, 0, 0, 0.1));
   }
 
   &[open] {
@@ -116,7 +110,7 @@ dialog {
     @starting-style {
       opacity: 0;
       translate: var(--ui-dialog-translate, 0 0);
-      transition: opacity 1.7s allow-discrete;
+      transition: opacity var(--ui-dialog-time, 1.7s) allow-discrete;
 
       &::backdrop {
         opacity: 0;

@@ -1,31 +1,82 @@
-import { Component, ElementRef, OnDestroy, OnInit, input, output, viewChild } from '@angular/core';
-import { NgTemplateOutlet } from '@angular/common';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  ViewContainerRef,
+  effect,
+  input,
+  output,
+  signal,
+  viewChild,
+  computed
+} from '@angular/core'
+import { NgIf, NgTemplateOutlet } from '@angular/common'
 // -----
-import { BehaviorSubject, Observable, Subject } from "rxjs";
+import { Subject } from 'rxjs'
 // -----
-import { Layout, Layouts, Position, Positions } from './dialog.types';
+import { DialogStatus, Layout, Layouts, Position, Positions, Status } from './dialog.types'
 
 @Component({
   selector: 'lib-ui-dialog',
   standalone: true,
-  imports: [NgTemplateOutlet],
-  templateUrl: './dialog.component.html',
-  styleUrl: './dialog.component.scss'
+  imports: [NgTemplateOutlet, NgIf],
+  template: `
+  <dialog #dialogRef class="{{ 'from-'+position() }}" [style.--ui-dialog-transition-display-duration]="delayTimeout()+'ms'">
+    @if (isInjected()) { <ng-container #injectionComponentRef></ng-container> }
+    @if (layout() === layoutType.FULL) { <ng-container [ngTemplateOutlet]="fullLayout" /> }
+    @else { <ng-container [ngTemplateOutlet]="defaultLayout" /> }
+  </dialog>
+
+  <!-- default layout -->
+  <ng-template #defaultLayout>
+    <ng-container [ngTemplateOutlet]="portal" />
+  </ng-template>
+
+  <!-- full layout -->
+  <ng-template #fullLayout>
+    <ng-content select="[header]"></ng-content>
+    <ng-container [ngTemplateOutlet]="portal" />
+    <ng-content select="[footer]"></ng-content>
+  </ng-template>
+
+  <!-- default content -->
+  <ng-template #portal >
+    <ng-content />
+  </ng-template>
+  `,
+  styleUrls: [`./dialog.animation.scss`, './dialog.component.scss']
 })
-export class DialogComponent implements OnInit, OnDestroy {
+export class DialogComponent implements OnDestroy, AfterViewInit {
   private dialog = viewChild<ElementRef<HTMLDialogElement>>('dialogRef')
+  private injectCompRef = viewChild('injectionComponentRef', { read: ViewContainerRef })
+  // -------
+  private component: any
+  private _dialogStatus$ = new Subject<Status>()
+  private _closeStatus: Status | null = null
+  private _isOpen = signal(false)
   // inputs
   public position = input<Positions>(Position.CENTER)
   public layout = input<Layouts>(Layout.FREE)
+  public delayTimeout = input<number>(800)
+  public blockEscape = input<boolean>(false)
   // outputs
   public onOpen = output<void>()
-  public onClose = output<'close'|'cancel'>()
+  public onClose = output<'close' | 'cancel'>()
   // properties
-  public positionType = Position
+  public isInjected = signal(false)
   public layoutType = Layout
-  public blockEscape = input<boolean>(false)
-  // -------
-  private _dialogStatus$ = new Subject<'opened'|'closed'|'canceled'>()
+
+  constructor() {
+    effect(() => {
+      if (this.injectCompRef()) {
+        this.injectCompRef()?.clear()
+        this.injectCompRef()?.createComponent(this.component)
+      }
+    })
+  }
+
+  public isOpen = computed(() => this._isOpen())
 
   public status() {
     return this._dialogStatus$.asObservable()
@@ -35,8 +86,9 @@ export class DialogComponent implements OnInit, OnDestroy {
     const dialog = this.dialog()?.nativeElement
 
     if (!dialog?.open) {
-      dialog?.showModal();
-      this._dialogStatus$.next('opened')
+      this._isOpen.set(true)
+      dialog?.showModal()
+      this.broadCastEvent(DialogStatus.OPENED)
     }
   }
 
@@ -44,22 +96,39 @@ export class DialogComponent implements OnInit, OnDestroy {
     const dialog = this.dialog()?.nativeElement
 
     if (dialog?.open) {
+      this._isOpen.set(false)
       dialog?.close();
     }
   }
 
+  public injectComponent(component: any) {
+    if (component) {
+      this.isInjected.set(true)
+      this.component = component
+    }
+  }
+
+  private broadCastEvent(status: Status): void {
+    this._dialogStatus$.next(status)
+  }
+
   private canceled(): void {
+    this._closeStatus = DialogStatus.CANCELED
     this.onClose.emit('cancel')
-    this._dialogStatus$.next('canceled')
   }
 
   private closed(event: Event): void {
-    if (this.blockEscape()) event.preventDefault()
-    this.onClose.emit('close')
-    this._dialogStatus$.next('closed')
+    const { CANCELED, CLOSED } = DialogStatus
+
+    if (this.blockEscape() && this._closeStatus === CANCELED) event.preventDefault()
+
+    setTimeout(() => {
+      this.onClose.emit('close')
+      this.broadCastEvent(this._closeStatus === CANCELED ? CANCELED : CLOSED)
+    }, this.delayTimeout());
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     const dialog = this.dialog()?.nativeElement
 
     if (dialog) {
