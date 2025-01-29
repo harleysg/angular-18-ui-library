@@ -1,118 +1,135 @@
+$root-name: 'ui-dialog';
 $int-name: --ui-dialog;
 $ext-name: --ext-ui-dialog;
 
 :host {
   #{$int-name}-border-width: 0;
-  #{$int-name}-backdrop-background: var(--app-overlay-brackground);
 }
 
-.from-center {
+.to-center {
   #{$int-name}-max-width: var(#{$ext-name}-center-max-width, 500px);
   #{$int-name}-max-height: var(#{$ext-name}-center-max-height, 500px);
   #{$int-name}-transition-translate-duration: 0.5s;
   #{$int-name}-transition-display-duration: .5s;
   #{$int-name}-transition-opacity-duration: .2s;
   #{$int-name}-translate: var(#{$ext-name}-center-translate, 0 0);
-  #{$int-name}-transition:
-    opacity var(--ui-dialog-transition-opacity-duration, 0.5s) allow-discrete,
-    display var(--ui-dialog-transition-display-duration, 0.5s) allow-discrete,
-    translate var(--ui-dialog-transition-translate-duration, .3s) allow-discrete;
 }
 
-.from-cenital,
-.from-nadir {
+.to-screen {
+  #{$int-name}-width: var(#{$ext-name}-center-width, 100%);
+  #{$int-name}-height: var(#{$ext-name}-center-height, 100%);
+  #{$int-name}-max-width: var(#{$ext-name}-center-max-width, 100%);
+  #{$int-name}-max-height: var(#{$ext-name}-center-max-height, 100%);
+  #{$int-name}-transition-translate-duration: 0.5s;
+  #{$int-name}-transition-display-duration: .5s;
+  #{$int-name}-transition-opacity-duration: .2s;
+  #{$int-name}-translate: var(#{$ext-name}-center-translate, 0 0);
+}
+
+.to-cenital,
+.to-nadir {
   #{$int-name}-height: 100%;
   #{$int-name}-width: 100%;
   #{$int-name}-transition-translate-duration: 0.5s;
   #{$int-name}-transition-opacity-duration: 0.8s;
-  #{$int-name}-transition: opacity var(#{$int-name}-transition-opacity-duration, 0.5s) allow-discrete,
-  display var(#{$int-name}-transition-display-duration, 0.5s) allow-discrete,
-  translate var(#{$int-name}-transition-translate-duration, .3s) allow-discrete;
 }
 
-.from-cenital {
+.to-cenital {
   #{$int-name}-max-width: var(#{$ext-name}-center-max-width, 100%);
   #{$int-name}-max-height: var(#{$ext-name}-center-max-height, 300px);
   #{$int-name}-inset-block-end: auto;
   #{$int-name}-translate: var(#{$ext-name}-cenital-translate, 0 -30%);
 }
 
-.from-nadir {
+.to-nadir {
   #{$int-name}-max-width: var(#{$ext-name}-cenital-max-width, 100%);
   #{$int-name}-max-height: var(#{$ext-name}-cenital-max-height, 300px);
   #{$int-name}-inset-block-start: auto;
   #{$int-name}-translate: var(#{$ext-name}-nadir-translate, 0 30%);
 }
 
-.from-right,
-.from-left {
+.to-right,
+.to-left {
   #{$int-name}-height: 100%;
   #{$int-name}-width: 100%;
   #{$int-name}-max-height: 100%;
   #{$int-name}-max-width: var(#{$ext-name}-lateral-max-width, 500px);
-  #{$int-name}-transition: opacity var(#{$int-name}-transition-opacity-duration, 0.5s) allow-discrete,
-  display var(#{$int-name}-transition-display-duration, 0.5s) allow-discrete,
-  translate var(#{$int-name}-transition-translate-duration, .3s) allow-discrete;
+  #{$int-name}-min-width: var(#{$ext-name}-lateral-max-width, auto);
 }
 
-.from-right {
+.to-right {
   #{$int-name}-margin-inline: auto 0;
-  #{$int-name}-translate-starting: 30% 0;
-  #{$int-name}-translate-ending: 30% 0;
+  #{$int-name}-translate: 100% 0;
   #{$int-name}-box-shadow: -20px 0 40px -40px #010101;
 }
 
-.from-left {
+.to-left {
   #{$int-name}-margin-inline: 0 auto;
   #{$int-name}-translate: -30% 0;
   #{$int-name}-box-shadow: 20px 0 40px -40px #010101;
 }
 
 dialog {
-  width: var(#{$int-name}-width, var(#{$ext-name}-width, fit-content));
-  height: var(#{$int-name}-height, fit-content);
-  max-width: var(#{$int-name}-max-width, calc(100% - 2em - 6px));
-  max-height: var(#{$int-name}-max-height, calc(100% - 2em - 6px));
+  // Box model properties - Size
+  inline-size: var(#{$int-name}-width, var(#{$ext-name}-width, fit-content));
+  block-size: var(#{$int-name}-height, fit-content);
+  max-inline-size: var(#{$int-name}-max-width, calc(100% - 2em - 6px));
+  max-block-size: var(#{$int-name}-max-height, calc(100% - 2em - 6px));
+  min-inline-size: var(#{$int-name}-min-width, calc(100% - 50vw));
+  min-block-size: var(#{$int-name}-min-height, calc(100% - 50dvh));
+  // Box model properties - Padding
   padding-inline: var(#{$int-name}-padding-inline, 0.5rem);
   padding-block: var(#{$int-name}-padding-block, 0.5rem);
-  background-color: var(#{$int-name}-color, canvas);
-  color: var(#{$int-name}-color, canvastext);
+  // Box model properties - Margin
   margin-inline: var(#{$int-name}-margin-inline, auto);
   margin-block: var(#{$int-name}-margin-block, auto);
+  // Box model properties - Border
   border-width: var(#{$int-name}-border-width, initial);
   border-style: var(#{$int-name}-border-style, solid);
   border-color: var(#{$int-name}-border-color, initial);
   border-image: var(#{$int-name}-border-image, initial);
+  /* inner content can query the dialog for h/w */
+  container-name: #{$root-name};
+  container-type: size;
+  // Positions
   inset-inline-start: var(#{$int-name}-inset-inline-start, 0px);
   inset-inline-end: var(#{$int-name}-inset-inline-end, 0px);
   inset-block-start: var(#{$int-name}-inset-block-start, 0px);
   inset-block-end: var(#{$int-name}-inset-block-end, 0px);
-  box-shadow: var(#{$int-name}-box-shadow, 0px 3px 50px -13px #7a7a7a);
-
-  transition: var(#{$int-name}-transition);
+  // Appearance
+  background-color: var(#{$int-name}-color, canvas);
+  color: var(#{$int-name}-color, canvastext);
+  box-shadow: var(#{$int-name}-box-shadow);
   opacity: 0;
+  scrollbar-color: var(--app-overlay-bg-light-dark) transparent;
+  scrollbar-width: thin;
+  // Transition
   translate: var(#{$int-name}-translate, 0 0);
+  transition: opacity var(--ui-dialog-transition-opacity-duration, 0.5s) allow-discrete,
+  overlay var(#{$int-name}-transition-display-duration, 0.5s) allow-discrete,
+  display var(--ui-dialog-transition-display-duration, 0.5s) allow-discrete,
+  translate var(--ui-dialog-transition-translate-duration, .3s) allow-discrete;
 
   &::backdrop {
-    transition: opacity 0.7s allow-discrete;
+    transition: opacity 0.7s;
     opacity: 0;
-    background: var(#{$int-name}-backdrop-background, rgba(0, 0, 0, 0.1));
+    background-color: var(#{$int-name}-backdrop-background, var(--app-overlay-bg-light-dark));
+    backdrop-filter: blur(2px);
   }
 
   &[open] {
-    opacity: 1;
     translate: 0 0;
 
-    &::backdrop {
+    &, &::backdrop {
       opacity: 1;
     }
 
     @starting-style {
-      opacity: 0;
       translate: var(--ui-dialog-translate, 0 0);
       transition: opacity var(--ui-dialog-time, 1.7s) allow-discrete;
 
-      &::backdrop {
+      &[open],
+      &[open]::backdrop {
         opacity: 0;
       }
     }

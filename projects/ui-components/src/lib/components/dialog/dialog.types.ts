@@ -7,7 +7,8 @@ export enum Position {
   RIGHT = 'right',
   NADIR = 'nadir',
   LEFT = 'left',
-  CENTER = 'center'
+  CENTER = 'center',
+  SCREEN = 'screen'
 }
 
 export type Positions = typeof Position[keyof typeof Position]
