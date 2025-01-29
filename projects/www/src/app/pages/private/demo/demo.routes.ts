@@ -14,12 +14,8 @@ export const DemoRouting: Route[] = [{
             posParams['user'] = new UrlSegment(path.slice(1), {})
           } else if (path.match(/^(\d{1,4})+$/gm)) {
             posParams['id'] = new UrlSegment(path, {})
-          } else if (path.match(/^(D[MWDF])/gm)) {
-            posParams['sailing'] = new UrlSegment(path, {})
-          } else if (path.match(/(.*-.*-?){6,}/gm)) {
-            posParams['sailingName'] = new UrlSegment(path, {})
-          } else if (path.match(/(?<name>([\d]{4})-([\d]{2})-([\d]{2})-Disney-[WMDF])/gm)) {
-            posParams['date'] = new UrlSegment(path, {})
+          } else if (path.match(/^(D[MWDF]|W[W])/gm)) {
+            posParams['category'] = new UrlSegment(path, {})
           }
         })
 
