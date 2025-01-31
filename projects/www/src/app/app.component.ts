@@ -1,20 +1,22 @@
 import { Component, computed, effect, inject, viewChild } from '@angular/core'
-import { RouterLink, RouterOutlet } from '@angular/router'
+import { RouterOutlet } from '@angular/router'
 import { LayoutService } from '@layout/main/layout.service'
-import {NgBrandComponent, DialogComponent } from '@ui-components'
+import { NgBrandComponent, DialogComponent } from '@ui-components'
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, DialogComponent, NgBrandComponent],
+  imports: [RouterOutlet, DialogComponent, NgBrandComponent],
   template: `
   <lib-ui-dialog #loadingModal class="loadingModal">
-    <section>
-      <header class="o-header">
+    <header class="o-header">
+      <div class="content">
         <lib-ng-brand [clipPathId]="'appCompClipPath'" />
-      </header>
+      </div>
+    </header>
+    <div class="content">
       <h3>Loading...</h3>
-    </section>
+    </div>
   </lib-ui-dialog>
   <router-outlet />`,
   styles: `
