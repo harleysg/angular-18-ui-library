@@ -8,11 +8,12 @@ $ext-name: --ext-ui-dialog;
 
 .to-center {
   #{$int-name}-max-width: var(#{$ext-name}-center-max-width, 500px);
-  #{$int-name}-max-height: var(#{$ext-name}-center-max-height, 500px);
+  #{$int-name}-max-height: var(#{$ext-name}-center-max-height, min(50dvh, 300px));
   #{$int-name}-transition-translate-duration: 0.5s;
   #{$int-name}-transition-display-duration: .5s;
   #{$int-name}-transition-opacity-duration: .2s;
-  #{$int-name}-translate: var(#{$ext-name}-center-translate, 0 0);
+  #{$int-name}-translate: var(#{$ext-name}-center-translate, 0 -2rem);
+  #{$int-name}-box-shadow: 4px 0px 30px -20px #010101, -4px 0px 30px -20px #010101;
 }
 
 .to-screen {
@@ -37,15 +38,19 @@ $ext-name: --ext-ui-dialog;
 .to-cenital {
   #{$int-name}-max-width: var(#{$ext-name}-center-max-width, 100%);
   #{$int-name}-max-height: var(#{$ext-name}-center-max-height, 300px);
+  #{$int-name}-min-height: var(#{$ext-name}-cenital-max-height, auto);
   #{$int-name}-inset-block-end: auto;
   #{$int-name}-translate: var(#{$ext-name}-cenital-translate, 0 -30%);
+  #{$int-name}-box-shadow: 0 20px 40px -40px #010101;
 }
 
 .to-nadir {
   #{$int-name}-max-width: var(#{$ext-name}-cenital-max-width, 100%);
   #{$int-name}-max-height: var(#{$ext-name}-cenital-max-height, 300px);
+  #{$int-name}-min-height: var(#{$ext-name}-cenital-max-height, auto);
   #{$int-name}-inset-block-start: auto;
   #{$int-name}-translate: var(#{$ext-name}-nadir-translate, 0 30%);
+  #{$int-name}-box-shadow: 0 -20px 40px -40px #010101;
 }
 
 .to-right,
@@ -71,12 +76,12 @@ $ext-name: --ext-ui-dialog;
 
 dialog {
   // Box model properties - Size
-  inline-size: var(#{$int-name}-width, var(#{$ext-name}-width, fit-content));
-  block-size: var(#{$int-name}-height, fit-content);
+  inline-size: var(#{$int-name}-width, 100%);
+  block-size: var(#{$int-name}-height, 100%);
+  min-inline-size: var(#{$int-name}-min-width, var(#{$ext-name}-width, fit-content));
+  min-block-size: var(#{$int-name}-min-height, fit-content);
   max-inline-size: var(#{$int-name}-max-width, calc(100% - 2em - 6px));
   max-block-size: var(#{$int-name}-max-height, calc(100% - 2em - 6px));
-  min-inline-size: var(#{$int-name}-min-width, calc(100% - 50vw));
-  min-block-size: var(#{$int-name}-min-height, calc(100% - 50dvh));
   // Box model properties - Padding
   padding-inline: var(#{$int-name}-padding-inline, 0.5rem);
   padding-block: var(#{$int-name}-padding-block, 0.5rem);
