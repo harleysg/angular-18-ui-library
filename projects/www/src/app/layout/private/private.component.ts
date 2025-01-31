@@ -1,21 +1,21 @@
+import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { NgBrandComponent } from '@ui-components';
+import { FULL_ROUTES } from '../../app.routes';
 
 @Component({
   selector: 'app-private-layout',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, NgBrandComponent],
+  imports: [RouterOutlet, RouterLink, NgBrandComponent, NgClass],
   template: `
   <header class="o-header">
     <div class="content">
       <lib-ng-brand clipPathId="privateLayoutClipPath" />
       <nav>
-        <a [routerLink]="['/']" routerLinkActive="router-link-active" >Home</a>
-        <a [routerLink]="['/private/demo']" routerLinkActive="router-link-active" >Demo</a>
-        <a [routerLink]="['/private/pokemon']" routerLinkActive="router-link-active" >Pokemon</a>
-        <a [routerLink]="['/private/products']" routerLinkActive="router-link-active" >Products</a>
-      </nav>
+        @for (route of routes; track $index) {
+          <a [routerLink]="route.url" routerLinkActive="router-link-active" [ngClass]="{'is-disabled': route.disabled}">{{route.label}}</a>
+        }</nav>
     </div>
   </header>
   <main class="o-main">
@@ -35,11 +35,20 @@ import { NgBrandComponent } from '@ui-components';
   grid-template-rows: auto 1fr;
 }
 
+.is-disabled {
+  color: #ccc;
+  cursor: help;
+}
+
+a {
+  text-decoration: none;
+}
+
 nav {
   display: flex;
   gap: 1rem;
 }`
 })
 export class PrivateLayoutComponent {
-
+  public routes = FULL_ROUTES
 }
