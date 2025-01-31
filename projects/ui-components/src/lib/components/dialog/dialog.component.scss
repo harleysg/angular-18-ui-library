@@ -102,7 +102,7 @@ dialog {
   inset-block-start: var(#{$int-name}-inset-block-start, 0px);
   inset-block-end: var(#{$int-name}-inset-block-end, 0px);
   // Appearance
-  background-color: var(#{$int-name}-color, canvas);
+  background-color: var(#{$int-name}-background-color, canvas);
   color: var(#{$int-name}-color, canvastext);
   box-shadow: var(#{$int-name}-box-shadow);
   opacity: 0;
