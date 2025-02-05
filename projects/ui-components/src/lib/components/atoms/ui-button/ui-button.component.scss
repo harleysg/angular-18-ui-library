@@ -1,0 +1,79 @@
+$root-name: 'ui-button';
+$int-name: --#{$root-name};
+$ext-name: --ext-#{$root-name};
+
+button {
+  // Box model properties - Size
+  block-size: var(#{$ext-name}-block-size, var(#{$int-name}-block-size, auto));
+  min-inline-size: var(#{$ext-name}-min-inline-size, var(#{$int-name}-min-inline-size, fit-content));
+  max-inline-size: var(#{$ext-name}-max-inline-size, var(#{$int-name}-max-inline-size, auto));
+  min-block-size: var(#{$ext-name}-min-block-size, var(#{$int-name}-min-block-size, fit-content));
+  // Box model properties - Border
+  border-color: var(#{$ext-name}-border-color, var(#{$int-name}-border-color, light-dark(#808080, #c4c4c4)));
+  border-width: var(#{$ext-name}-border-width, var(#{$int-name}-border-width, 1px));
+  border-style: var(#{$ext-name}-border-style, var(#{$int-name}-border-style, solid));
+  // Box model properties - Padding
+  padding-inline: var(#{$ext-name}-padding-inline, var(#{$int-name}-padding-inline, 0.3rem));
+  padding-block: var(#{$ext-name}-padding-block, var(#{$int-name}-padding-block, 2px));
+  // Box model properties - Margin
+  margin-inline: var(#{$ext-name}-margin-inline, var(#{$int-name}-margin-inline, initial));
+  margin-block: var(#{$ext-name}-margin-block, var(#{$int-name}-margin-block, initial));
+  // Appearance
+  display: var(#{$ext-name}-display, var(#{$int-name}-display, inline-flex));
+  gap: var(#{$ext-name}-gap, var(#{$int-name}-gap, 1ch));
+  align-items: var(#{$ext-name}-align-items, var(#{$int-name}-align-items, center));
+  justify-content: var(#{$ext-name}-justify-content, var(#{$int-name}-justify-content, center));
+  border-radius: var(#{$ext-name}-border-radius, var(#{$int-name}-border-radius, 0.1rem));
+  background-color: var(#{$ext-name}-background-color, var(#{$int-name}-background-color, light-dark(#efefef, #3b3b3b)));
+  color: var(#{$ext-name}-color, var(#{$int-name}-color, currentColor));
+  aspect-ratio: var(#{$ext-name}-aspect-ratio, var(#{$int-name}-aspect-ratio, auto));
+  cursor: var(#{$ext-name}-cursor, var(#{$int-name}-cursor, default));
+  font-size: var(#{$ext-name}-font-size, var(#{$int-name}-font-size, 0.85rem));
+  line-height: var(#{$ext-name}-line-height, var(#{$int-name}-line-height, 1));
+  font-weight: var(#{$ext-name}-font-weight, var(#{$int-name}-font-weight, 400));
+  font-family: var(#{$ext-name}-font-family, var(#{$int-name}-font-family, sans-serif));
+
+  &:focus-visible {
+    outline: -webkit-focus-ring-color auto 1px;
+  }
+
+  &:hover {
+    #{$ext-name}-background-color: var(#{$ext-name}-background-color--hover, light-dark(oklch(0.86 0 0 / 0.46), #5d5d5d));
+    #{$ext-name}-border-color: var(#{$ext-name}-border-color--hover, light-dark(#3b3b3b, #f7f7f7));
+  }
+
+  &[disabled] {
+    #{$ext-name}-cursor: var(#{$int-name}--disabled-cursor, default);
+    opacity: var(#{$int-name}--disabled-opacity, 0.3);
+    pointer-events: var(#{$int-name}--disabled-pointer-events, none);
+  }
+
+  &.#{$root-name}--flat {
+    #{$int-name}-border-color: var(#{$ext-name}--flat-border-color, transparent);
+    #{$int-name}-border-width: var(#{$ext-name}--flat-border-width, transparent);
+  }
+
+  &.#{$root-name}--outline {
+    #{$int-name}-background-color: var(#{$ext-name}--outline-background-color, none);
+  }
+
+  &.#{$root-name}--rounded {
+    #{$int-name}-border-radius: var(#{$ext-name}--rounded-border-radius, 9999px);
+  }
+
+  &.#{$root-name}--squared {
+    #{$int-name}-border-width: var(#{$ext-name}-border-squared, 0);
+  }
+
+  &.#{$root-name}--center {
+    text-align: center;
+  }
+
+  &.#{$root-name}--left {
+    text-align: left;
+  }
+
+  &.#{$root-name}--right {
+    text-align: right;
+  }
+}
