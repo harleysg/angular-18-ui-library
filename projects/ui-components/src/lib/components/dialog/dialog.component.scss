@@ -2,16 +2,12 @@ $root-name: 'ui-dialog';
 $int-name: --ui-dialog;
 $ext-name: --ext-ui-dialog;
 
-:host {
-  #{$int-name}-border-width: 0;
-}
-
 .to-center {
   #{$int-name}-max-width: var(#{$ext-name}-center-max-width, 500px);
   #{$int-name}-max-height: var(#{$ext-name}-center-max-height, min(50dvh, 300px));
-  #{$int-name}-transition-translate-duration: 0.5s;
-  #{$int-name}-transition-display-duration: .5s;
-  #{$int-name}-transition-opacity-duration: .2s;
+  #{$int-name}-transition-translate-duration: var(#{$ext-name}-transition-translate-duration, 0.5s);
+  #{$int-name}-transition-display-duration: var(#{$ext-name}-transition-display-duration, .5s);
+  #{$int-name}-transition-opacity-duration: var(#{$ext-name}-transition-opacity-duration, .2s);
   #{$int-name}-translate: var(#{$ext-name}-center-translate, 0 -2rem);
   #{$int-name}-box-shadow: 4px 0px 30px -20px #010101, -4px 0px 30px -20px #010101;
 }
@@ -21,9 +17,9 @@ $ext-name: --ext-ui-dialog;
   #{$int-name}-height: var(#{$ext-name}-center-height, 100%);
   #{$int-name}-max-width: var(#{$ext-name}-center-max-width, 100%);
   #{$int-name}-max-height: var(#{$ext-name}-center-max-height, 100%);
-  #{$int-name}-transition-translate-duration: 0.5s;
-  #{$int-name}-transition-display-duration: .5s;
-  #{$int-name}-transition-opacity-duration: .2s;
+  #{$int-name}-transition-translate-duration: var(#{$ext-name}-transition-translate-duration, 0.5s);
+  #{$int-name}-transition-display-duration: var(#{$ext-name}-transition-display-duration, .5s);
+  #{$int-name}-transition-opacity-duration: var(#{$ext-name}-transition-opacity-duration, .2s);
   #{$int-name}-translate: var(#{$ext-name}-center-translate, 0 0);
 }
 
@@ -31,8 +27,9 @@ $ext-name: --ext-ui-dialog;
 .to-nadir {
   #{$int-name}-height: 100%;
   #{$int-name}-width: 100%;
-  #{$int-name}-transition-translate-duration: 0.5s;
-  #{$int-name}-transition-opacity-duration: 0.8s;
+  #{$int-name}-transition-translate-duration: var(#{$ext-name}-transition-translate-duration, 0.5s);
+  #{$int-name}-transition-display-duration: var(#{$ext-name}-transition-display-duration, .5s);
+  #{$int-name}-transition-opacity-duration: var(#{$ext-name}-transition-opacity-duration, .8s);
 }
 
 .to-cenital {
@@ -89,36 +86,40 @@ dialog {
   margin-inline: var(#{$int-name}-margin-inline, auto);
   margin-block: var(#{$int-name}-margin-block, auto);
   // Box model properties - Border
-  border-width: var(#{$int-name}-border-width, initial);
-  border-style: var(#{$int-name}-border-style, solid);
-  border-color: var(#{$int-name}-border-color, initial);
-  border-image: var(#{$int-name}-border-image, initial);
+  border-width: var(#{$int-name}-border-width, var(#{$ext-name}-border-width, 0));
+  border-style: var(#{$int-name}-border-style, var(#{$ext-name}-border-style, solid));
+  border-color: var(#{$int-name}-border-color, var(#{$ext-name}-border-color, initial));
+  border-image: var(#{$int-name}-border-image, var(#{$ext-name}-border-image, initial));
   /* inner content can query the dialog for h/w */
   container-name: #{$root-name};
   container-type: size;
   // Positions
-  inset-inline-start: var(#{$int-name}-inset-inline-start, 0px);
-  inset-inline-end: var(#{$int-name}-inset-inline-end, 0px);
-  inset-block-start: var(#{$int-name}-inset-block-start, 0px);
-  inset-block-end: var(#{$int-name}-inset-block-end, 0px);
+  inset-inline-start: var(#{$int-name}-inset-inline-start, var(#{$ext-name}-inset-inline-start, 0));
+  inset-inline-end: var(#{$int-name}-inset-inline-end, var(#{$ext-name}-inset-inline-end, 0));
+  inset-block-start: var(#{$int-name}-inset-block-start, var(#{$ext-name}-inset-block-start, 0));
+  inset-block-end: var(#{$int-name}-inset-block-end, var(#{$ext-name}-inset-block-end, 0));
   // Appearance
-  background-color: var(#{$int-name}-background-color, canvas);
-  color: var(#{$int-name}-color, canvastext);
-  box-shadow: var(#{$int-name}-box-shadow);
+  background-color: var(#{$int-name}-background-color, var(#{$ext-name}-background-color, canvas));
+  color: var(#{$int-name}-color, var(#{$ext-name}-color, canvastext));
+  box-shadow: var(#{$int-name}-box-shadow, var(#{$ext-name}-box-shadow, none));
   opacity: 0;
-  scrollbar-color: var(--app-overlay-bg-light-dark) transparent;
-  scrollbar-width: thin;
   // Transition
   translate: var(#{$int-name}-translate, 0 0);
-  transition: opacity var(--ui-dialog-transition-opacity-duration, 0.5s) allow-discrete,
+  transition: opacity var(#{$int-name}-transition-opacity-duration, 0.5s) allow-discrete,
   overlay var(#{$int-name}-transition-display-duration, 0.5s) allow-discrete,
-  display var(--ui-dialog-transition-display-duration, 0.5s) allow-discrete,
-  translate var(--ui-dialog-transition-translate-duration, .3s) allow-discrete;
+  display var(#{$int-name}-transition-display-duration, 0.5s) allow-discrete,
+  translate var(#{$int-name}-transition-translate-duration, .3s) allow-discrete;
+
+  // Scrollbar
+  @supports (scrollbar-color: auto) {
+    scrollbar-color: var(#{ext-name}--scrollbar-color, var(#{int-name}-scrollbar-color, var(--app-scrollbar-color-schema))) transparent;
+    scrollbar-width: thin;
+  }
 
   &::backdrop {
     transition: opacity 0.7s;
     opacity: 0;
-    background-color: var(#{$int-name}-backdrop-background, var(--app-overlay-bg-light-dark));
+    background-color: var(#{$ext-name}-backdrop-background, var(#{$int-name}-backdrop-background, var(--app-overlay-background-schema)));
     backdrop-filter: blur(2px);
   }
 
