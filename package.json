@@ -5,7 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "test:web": "ng test --project='www' --code-coverage",
+    "test:lib": "ng test --project='ui-components' --code-coverage",
     "dev:web": "ng serve --project='www' --port=1234 --watch --configuration development",
     "dev:lib": "ng build --project='ui-components' --watch --configuration development",
     "prod:lib": "ng build --project='ui-components' --configuration production"

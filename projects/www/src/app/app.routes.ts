@@ -1,5 +1,12 @@
 import { Routes } from '@angular/router'
 import { LayoutComponent } from './layout/main/layout.component'
+import { authGuard } from './shared/guards/auth.guard'
+
+export const FULL_ROUTES = [
+  { url: '/', label: 'Home', disabled: false },
+  { url: '/demo', label: 'Demo', disabled: false },
+  { url: '/products', label: 'Products', disabled: false }
+]
 
 export const routes: Routes = [{
   path: '',
@@ -7,15 +14,16 @@ export const routes: Routes = [{
   children: [
     {
       path: '',
-      loadChildren: () => import('./pages/home/home.routes').then(m => m.HomeRouting)
+      loadChildren: () => import('./pages/public/public.routes').then(m => m.PublicRoutes)
     },
     {
-      path: 'demo',
-      loadChildren: () => import('./pages/demo/demo.routes').then(m => m.DemoRouting)
+      path: '',
+      canActivate: [authGuard],
+      loadChildren: () => import('./pages/private/private.routes').then(m => m.privateRoutes)
     },
     {
-      path: 'products',
-      loadChildren: () => import('./pages/products/products.routes').then(m => m.ProductsRouting)
+      path: '**',
+      redirectTo: ''
     },
   ]
 }]

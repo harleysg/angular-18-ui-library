@@ -4,6 +4,7 @@
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "strict": true,
+    "noImplicitAny": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
@@ -25,6 +26,9 @@
       "@data/*": ["./projects/www/src/app/data/*"],
       "@models/*": ["./projects/www/src/app/models/*"],
       "@services/*": ["./projects/www/src/app/services/*"],
+      "@layout/*": ["./projects/www/src/app/layout/*"],
+      "@shared/*": ["./projects/www/src/app/shared/*"],
+      "@env/*": ["./projects/www/src/environments/*"]
     },
     "lib": [
       "ES2022",

@@ -1,28 +1,46 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from "rxjs";
+import { ComponentRef, inject, Injectable, ViewContainerRef } from '@angular/core';
 import { DialogComponent } from './dialog.component';
+import { DialogServiceEvents } from './dialog.types';
+import { DialogActionService } from './dialog.action.service';
+import { of } from 'rxjs';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class DialogService {
+  actions = inject(DialogActionService)
 
-  public open(ref?: DialogComponent) {
-    if (ref instanceof DialogComponent) {
-      ref.open()
+  private renderDialog(dialogContainer: ViewContainerRef) {
+    return dialogContainer.createComponent(DialogComponent)
+  }
+
+  private ref(ref?: DialogComponent): DialogServiceEvents {
+    const isInstance = ref instanceof DialogComponent
+    return {
+      open: () => isInstance ? setTimeout(() => this.actions.open(ref), 100) : null,
+      close: () => isInstance ? setTimeout(() => this.actions.close(ref), 700) : null,
+      status: () => isInstance ? this.actions.status(ref) : of(null),
     }
   }
 
-  public close(ref?: DialogComponent) {
-    if (ref instanceof DialogComponent) {
-      ref.close()
-    }
-  }
-
-  public status(ref?: DialogComponent): Observable<"opened" | "closed" | "canceled" | null> {
-    if (ref instanceof DialogComponent) {
-      return ref.status()
+  public load(dialogContainer: ViewContainerRef | DialogComponent) {
+    let dialogRef: ComponentRef<DialogComponent> | null = null
+    let ref: DialogServiceEvents = {
+      open: () => null,
+      close: () => null,
+      status: () => of(null)
     }
 
-    return of(null)
-  }
+    if (dialogContainer instanceof ViewContainerRef) {
+      dialogRef = this.renderDialog(dialogContainer)
+      ref = this.ref(dialogRef?.instance)
+    } else if (dialogContainer instanceof DialogComponent) {
+      ref = this.ref(dialogContainer)
+    }
 
+    return {
+      ref: dialogRef,
+      open: ref.open,
+      close: ref.close,
+      status: ref.status,
+    }
+  }
 }
